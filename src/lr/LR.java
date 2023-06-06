@@ -12,9 +12,14 @@ import lr.format.wavefront.material.MaterialFormat;
 class LR {
 	static final int LARGEUR = 1980;
 	static final int HAUTEUR = 1080;
-	static final int NBRAYONS = 10;
+	static final int NBRAYONS = 100;
 	static final int NIVEAU = 2;
-
+	
+	// valeurs originelles : 
+	// static final int LARGEUR = 1980;
+	// static final int HAUTEUR = 1080;
+	// static final int NBRAYONS = 10;
+	// static final int NIVEAU = 2;
 	public static void main(String[] args) {
 
 		Renderer r = new Renderer(LARGEUR, HAUTEUR);
