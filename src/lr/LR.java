@@ -21,7 +21,7 @@ class LR {
 	// static final int NBRAYONS = 10;
 	// static final int NIVEAU = 2;
 	public static void main(String[] args) {
-
+		Thread[] threads = new Thread[10];
 		Renderer r = new Renderer(LARGEUR, HAUTEUR);
 		Scene sc = new FormatSimple().charger("simple.txt");
 		sc.display();
@@ -29,9 +29,23 @@ class LR {
 		r.setNiveau(NIVEAU);
 
 		// r.renderFullImage(NBRAYONS);
-
-		for (int i = 0; i < HAUTEUR; i++) {
-			r.renderLine(i, NBRAYONS);
+		for (int i = 0; i < threads.length; i++) {
+			ParallelRenderer pr = new ParallelRenderer(i * (HAUTEUR / threads.length),
+					i * (HAUTEUR / threads.length) + (HAUTEUR / threads.length), NBRAYONS, r);
+			Thread t = new Thread(pr);
+			threads[i] = t;
+			t.start();
+		}
+		
+		// for (int i = 0; i < HAUTEUR; i++) {
+		// 	r.renderLine(i, NBRAYONS);
+		// }
+		for (int i = 0; i < threads.length; i++) {
+			try {
+				threads[i].join();
+			} catch (Exception e) {
+				System.out.println(e);
+			}
 		}
 		Image image = r.getIm();
 
